@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head> 		<!-- FILE HEAD -->
+	
+	<title>Aviation Safety Reporting</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<script type="text/javascript" charset="utf-8"> </script>
+	
+	<link rel="stylesheet" href="css/jquery.mobile-1.3.0.css">
+	<script src="js/modernizr.js"></script>
+	
+	<script>
+		if (!Modernizr.localstorage) {
+			alert('Cannot store reports locally. Use app only with stable internet connection!')
+		}	
+	</script>
+	
+	<script src="cordova.js"></script>
+	<script src="js/common.js"></script>
+	<script src="js/jquery-1.9.1.js"></script>
+  	<script src="js/jquery.mobile-1.3.0.js"></script>
+  	  	  	  	
+</head>
+<body> 		<!-- FILE BODY -->
+	
+	<!-- MAIN PAGE -->
+	<div data-role="page" id="mainPage">
+	
+	    <div data-role="header" data-position="inline" id="indexheader" >
+	        <h1>Page 1 Heading</h1>
+	    </div> <!-- /header -->
+	
+	    <div data-role="content">
+	        <h3><a href="#reportPage" data-role="button" data-transition="pop">Create report</a></h3>
+	        <h3><a href="#configPage" data-transition="pop" data-rel="dialog">Configure app</a></h3>
+	        <input type="button" value="Check connection" onclick="checkConnection();" />
+	    </div> <!-- /content -->
+	
+	    <div data-role="footer"  data-position="fixed">
+	    <h3>Footer Text</h3>
+	    </div> <!-- /footer -->
+	</div> <!-- /mainPage -->
+	
+	<!-- CONFIGURATION PAGE -->
+	<div data-role="page" id="configPage">
+	
+	    <div data-role="header" data-position="inline" id="page2header" >
+	        <h1>Page 2 Heading</h1>
+	    </div> <!-- /header -->
+	
+	    <div data-role="content">
+	        <h3>page Content</h3>
+	    </div> <!-- /content -->
+	
+	    <div data-role="footer"  data-position="fixed">
+	    <h3>Footer Text</h3>
+	    </div> <!-- /footer -->
+	</div> <!-- /configPage -->
+	
+	<!-- REPORT PAGE -->
+	<div data-role="page" id="reportPage">
+	
+	    <div data-role="header" data-position="inline" id="page3header" >
+	        <h1>Page 3 Heading</h1>
+	    </div> <!-- /header -->
+	
+	    <div data-role="content">
+	        <h3>page Content</h3>
+	    </div> <!-- /content -->
+	
+	    <div data-role="footer"  data-position="fixed">
+	    <h3>Footer Text</h3>
+	    </div> <!-- /footer -->
+	</div> <!-- /reportPage -->			
+	
+</body>
+
+</html>
+
+
