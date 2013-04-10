@@ -8,6 +8,7 @@
 	<script type="text/javascript" charset="utf-8"> </script>
 	
 	<link rel="stylesheet" href="css/jquery.mobile-1.3.0.css">
+	<link rel="stylesheet" href="css/simpledialog.css">
 	<script src="js/modernizr.js"></script>
 	
 	<script>
@@ -18,61 +19,142 @@
 	
 	<script src="cordova.js"></script>
 	<script src="js/common.js"></script>
+	<script src="js/json2.js"></script>
 	<script src="js/jquery-1.9.1.js"></script>
   	<script src="js/jquery.mobile-1.3.0.js"></script>
+  	<script src="js/simpledialog.js"></script>
+  	  	
+  	<script>
+  		// Configuration data object
+  		var config = {	domain:   "http://safety.futuredreamsunlimited.com",
+  					  	username: "safety@futuredreamsunlimited.com",
+  					  	password: "foo" };  
+  					  	
+  		// LocalStorage names
+  		var configFileName = 'config';
+  		var reportFileName = 'ASR-';	 // dash included for date separation	
+  	</script>
   	  	  	  	
 </head>
+
 <body> 		<!-- FILE BODY -->
 	
 	<!-- MAIN PAGE -->
-	<div data-role="page" id="mainPage">
-	
-	    <div data-role="header" data-position="inline" id="indexheader" >
-	        <h1>Page 1 Heading</h1>
-	    </div> <!-- /header -->
-	
-	    <div data-role="content">
-	        <h3><a href="#reportPage" data-role="button" data-transition="pop">Create report</a></h3>
-	        <h3><a href="#configPage" data-transition="pop" data-rel="dialog">Configure app</a></h3>
-	        <input type="button" value="Check connection" onclick="checkConnection();" />
-	    </div> <!-- /content -->
-	
-	    <div data-role="footer"  data-position="fixed">
-	    <h3>Footer Text</h3>
-	    </div> <!-- /footer -->
+	<div data-role="page" id="mainPage" data-theme="e" data-title="ASR - Home">
+            
+        <div data-role="content">
+        	<input type="button" value="Check connection" onclick="checkConnection();" />
+        	<input type="button" value="Check configuration" onclick="checkConfiguration('check');" />
+        	<input type="button" value="Check unsent" onclick="checkUnsent();" />
+        </div> <!-- /content -->
+        
+        <div data-role="footer" data-position="fixed" data-theme="e">
+            <div data-role="navbar">
+                <ul>
+                    <li>
+                        <a data-role="button" class="ui-btn-active" id="homeButton" href="#mainPage" data-transition="none"
+                        data-icon="home">Home</a>
+                    </li>
+                    <li>
+                        <a data-role="button" id="reportButton" href="#reportPage" data-transition="none"
+                        data-icon="plus">Report</a>
+                    </li>
+                    <li>
+                        <a data-role="button" id="configButton" href="#configPage" data-transition="none"
+                        data-icon="gear">Configure</a>
+                    </li>
+                </ul>
+            </div>
+        </div> <!-- /footer -->
 	</div> <!-- /mainPage -->
 	
-	<!-- CONFIGURATION PAGE -->
-	<div data-role="page" id="configPage">
-	
-	    <div data-role="header" data-position="inline" id="page2header" >
-	        <h1>Page 2 Heading</h1>
-	    </div> <!-- /header -->
-	
-	    <div data-role="content">
-	        <h3>page Content</h3>
-	    </div> <!-- /content -->
-	
-	    <div data-role="footer"  data-position="fixed">
-	    <h3>Footer Text</h3>
-	    </div> <!-- /footer -->
-	</div> <!-- /configPage -->
-	
 	<!-- REPORT PAGE -->
-	<div data-role="page" id="reportPage">
+	<div data-role="page" id="reportPage" data-theme="e" data-title="Air Safety Report">
+        
+        <div data-role="header" data-position="fixed" data-theme="e">
+            <h1>Safety Report</h1>
+            <a data-role="button" class="ui-btn-right" id="saveReport" href="#"
+            data-transition="none" data-icon="check" onclick="saveReport();">Save</a>
+        </div> <!-- /header -->
+        
+        <div data-role="content">  	
+            <form id="report" action="#" method="post">
+                <div data-role="fieldcontain">
+                    <label for="name">Name</label>
+                    <input name="name" id="name" type="text">
+                </div>
+                <div data-role="fieldcontain"> <!---->
+                    <label for="text1">Message</label>
+                    <input name="message" id="message" type="text">
+                </div>
+                <input type="submit" value="Submit" data-theme="e"/>
+            </form>
+        </div> <!-- /content -->
+        
+        <div data-role="footer" data-position="fixed" data-theme="e">
+            <div data-role="navbar">
+                <ul>
+                    <li>
+                        <a data-role="button" id="homeButton" href="#mainPage" data-transition="none" data-icon="home">Home</a>
+                    </li>
+                    <li>
+                        <a data-role="button" class="ui-btn-active" id="reportButton" href="#reportPage"
+                        data-transition="none" data-icon="plus">Report</a>
+                    </li>
+                    <li>
+                        <a data-role="button" id="configButton" href="#configPage" data-transition="none"
+                        data-icon="gear">Configure</a>
+                    </li>
+                </ul>
+            </div>
+        </div> <!-- /footer -->
+ 	</div> <!-- /reportPage -->
 	
-	    <div data-role="header" data-position="inline" id="page3header" >
-	        <h1>Page 3 Heading</h1>
-	    </div> <!-- /header -->
-	
-	    <div data-role="content">
-	        <h3>page Content</h3>
-	    </div> <!-- /content -->
-	
-	    <div data-role="footer"  data-position="fixed">
-	    <h3>Footer Text</h3>
-	    </div> <!-- /footer -->
-	</div> <!-- /reportPage -->			
+	<!-- CONFIGURATION PAGE -->
+	<div data-role="page" id="configPage" data-theme="e" data-title="Configuration">
+        
+        <div data-role="header" data-position="fixed" data-theme="e">
+            <h1>Configuration</h1>
+            <a data-role="button" class="ui-btn-right" href="#" data-transition="none"
+            data-icon="check" data-theme="e" onclick="saveConfiguration();">Save</a>
+        </div> <!-- header -->
+        
+        <div data-role="content">
+            <form id="configForm" action="#" method="post">
+                <div data-role="fieldcontain">
+                    <label for="domain">Domain</label>
+                    <input name="domain" id="domain" type="text"> <!-- value="domein"> -->
+                </div>
+                <div data-role="fieldcontain"> <!---->
+                    <label for="username">Username</label>
+                    <input name="username" id="username" type="text"> <!-- value="gebruiker"> -->
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="password">Password</label>
+                    <input name="password" id="password" type="password"> <!-- value="wachtwoord"> -->
+                </div> <!---->
+                <!-- <input type="submit" value="Submit"/> -->
+            </form>
+        </div> <!-- /content -->
+        
+        <div data-role="footer" data-position="fixed" data-theme="e">
+            <div data-role="navbar">
+                <ul>
+                    <li>
+                        <a data-role="button" id="homeButton" href="#mainPage" data-transition="none" data-icon="home">Home</a>
+                    </li>
+                    <li>
+                        <a data-role="button" id="reportButton" href="#reportPage" data-transition="none"
+                        data-icon="plus">Report</a>
+                    </li>
+                    <li>
+                        <a data-role="button" class="ui-btn-active" id="configButton" href="#configPage"
+                        data-transition="none" data-icon="gear">Configure</a>
+                    </li>
+                </ul>
+            </div>
+        </div> <!-- /footer -->
+ 	</div> <!-- /configPage -->
 	
 </body>
 
